@@ -1,4 +1,3 @@
-// your code goes here
 // NAV
 const hamburger = document.getElementById('hamburger');
 const navMenu = document.getElementById('navMenu');
@@ -37,10 +36,12 @@ function initTheme() {
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
   applyTheme(prefersDark ? 'dark' : 'light');
 }
+
 toggleBtn.addEventListener('click', () => {
   const current = htmlEl.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
   applyTheme(current);
 });
+
 initTheme();
 
 // TYPING
@@ -87,15 +88,67 @@ window.addEventListener('scroll', () => {
   navLinks.forEach(link => link.classList.toggle('active', link.getAttribute('href') === `#${current}`));
 });
 
-// Parallax tilt for skill tiles
+// ===== LIQUID GLASS MOUSE TRACKING =====
+document.addEventListener('mousemove', (e) => {
+  const glassCards = document.querySelectorAll('.lg-depth, .glass-card, .parallax-tile');
+  
+  glassCards.forEach(card => {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    const isInside = x > 0 && x < rect.width && y > 0 && y < rect.height;
+    
+    if (isInside) {
+      const xPercent = (x / rect.width - 0.5) * 100;
+      const yPercent = (y / rect.height - 0.5) * 100;
+      
+      // Create subtle gradient follow effect
+      card.style.setProperty('--mouse-x', xPercent + '%');
+      card.style.setProperty('--mouse-y', yPercent + '%');
+    }
+  });
+});
+
+// Parallax tilt for skill tiles with enhanced liquid effect
 document.querySelectorAll('.parallax-tile').forEach(tile => {
   tile.addEventListener('mousemove', (e) => {
     const r = tile.getBoundingClientRect();
     const x = (e.clientX - r.left) / r.width - 0.5;
     const y = (e.clientY - r.top) / r.height - 0.5;
-    tile.style.transform = `perspective(800px) rotateX(${(-y*3)}deg) rotateY(${(x*3)}deg) translateZ(4px)`;
+    
+    // 3D tilt with enhanced depth
+    tile.style.transform = `
+      perspective(1200px) 
+      rotateX(${(-y * 8)}deg) 
+      rotateY(${(x * 8)}deg) 
+      translateZ(10px) 
+      scale(1.02)
+    `;
   });
+  
   tile.addEventListener('mouseleave', () => {
-    tile.style.transform = '';
+    tile.style.transform = 'perspective(1200px) rotateX(0) rotateY(0) translateZ(0) scale(1)';
   });
 });
+
+// Enhanced button liquid effect
+document.querySelectorAll('.btn').forEach(btn => {
+  btn.addEventListener('mousemove', (e) => {
+    const rect = btn.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    btn.style.setProperty('--btn-x', x + 'px');
+    btn.style.setProperty('--btn-y', y + 'px');
+  });
+});
+
+// Card glow on hover
+document.querySelectorAll('.glass-card, .glass-chip').forEach(card => {
+  card.addEventListener('mouseenter', () => {
+    card.style.transition = 'all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)';
+  });
+});
+
+console.log('Liquid Glass Portfolio loaded! 🌊✨');
