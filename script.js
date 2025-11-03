@@ -44,7 +44,7 @@ toggleBtn.addEventListener('click', () => {
 initTheme();
 
 // TYPING
-const roles = ['Data Engineer','ML Practitioner','Fraud Detection Specialist','Big Data Expert'];
+const roles = ['Data Science','Machine Learning','Fraud & Risk','Applied Statistics'];
 let roleIndex = 0, charIndex = 0, isDeleting = false, typingSpeed = 100;
 
 function typeRole() {
