@@ -17,12 +17,33 @@ navLinks.forEach(link => {
 });
 
 window.addEventListener('scroll', () => {
-  if (window.scrollY > 50) {
-    navbar.classList.add('scrolled');
-  } else {
-    navbar.classList.remove('scrolled');
-  }
+  navbar.classList.toggle('scrolled', window.scrollY > 50);
 });
+
+// ==================== THEME TOGGLE ====================
+const htmlEl = document.documentElement;
+const toggleBtn = document.getElementById('themeToggle');
+
+function applyTheme(theme) {
+  htmlEl.setAttribute('data-theme', theme);
+  localStorage.setItem('theme', theme);
+  // icon state
+  toggleBtn.classList.toggle('is-dark', theme === 'dark');
+}
+
+function initTheme() {
+  const saved = localStorage.getItem('theme');
+  if (saved) return applyTheme(saved);
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  applyTheme(prefersDark ? 'dark' : 'light');
+}
+
+toggleBtn.addEventListener('click', () => {
+  const current = htmlEl.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  applyTheme(current);
+});
+
+initTheme();
 
 // ==================== TYPING ANIMATION ====================
 const roles = [
@@ -32,10 +53,7 @@ const roles = [
   'Big Data Expert'
 ];
 
-let roleIndex = 0;
-let charIndex = 0;
-let isDeleting = false;
-let typingSpeed = 100;
+let roleIndex = 0, charIndex = 0, isDeleting = false, typingSpeed = 100;
 
 function typeRole() {
   const roleText = document.getElementById('roleText');
@@ -43,23 +61,17 @@ function typeRole() {
 
   if (isDeleting) {
     roleText.textContent = currentRole.substring(0, charIndex - 1);
-    charIndex--;
-    typingSpeed = 50;
+    charIndex--; typingSpeed = 50;
   } else {
     roleText.textContent = currentRole.substring(0, charIndex + 1);
-    charIndex++;
-    typingSpeed = 100;
+    charIndex++; typingSpeed = 100;
   }
 
   if (!isDeleting && charIndex === currentRole.length) {
-    typingSpeed = 2000;
-    isDeleting = true;
+    typingSpeed = 2000; isDeleting = true;
   } else if (isDeleting && charIndex === 0) {
-    isDeleting = false;
-    roleIndex = (roleIndex + 1) % roles.length;
-    typingSpeed = 500;
+    isDeleting = false; roleIndex = (roleIndex + 1) % roles.length; typingSpeed = 500;
   }
-
   setTimeout(typeRole, typingSpeed);
 }
 document.addEventListener('DOMContentLoaded', typeRole);
@@ -78,17 +90,15 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('reveal-in');
-    }
+    if (entry.isIntersecting) entry.target.classList.add('reveal-in');
   });
 }, observerOptions);
 
 document.addEventListener('DOMContentLoaded', () => {
-  const animatedElements = document.querySelectorAll(
+  const animated = document.querySelectorAll(
     '.xp-card, .project-card, .skill-category, .stat-item, .education-card, .hero-content, .contact-info'
   );
-  animatedElements.forEach(el => observer.observe(el));
+  animated.forEach(el => observer.observe(el));
 });
 
 // ==================== ACTIVE NAV HIGHLIGHT ====================
@@ -100,7 +110,6 @@ window.addEventListener('scroll', () => {
     if (pageYOffset >= sectionTop - 200) current = section.getAttribute('id');
   });
   navLinks.forEach(link => {
-    link.classList.remove('active');
-    if (link.getAttribute('href') === `#${current}`) link.classList.add('active');
+    link.classList.toggle('active', link.getAttribute('href') === `#${current}`);
   });
 });
