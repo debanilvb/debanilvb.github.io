@@ -88,7 +88,7 @@ window.addEventListener('scroll', () => {
   navLinks.forEach(link => link.classList.toggle('active', link.getAttribute('href') === `#${current}`));
 });
 
-// ===== LIQUID GLASS MOUSE TRACKING =====
+// 
 document.addEventListener('mousemove', (e) => {
   const glassCards = document.querySelectorAll('.lg-depth, .glass-card, .parallax-tile');
   
@@ -103,21 +103,21 @@ document.addEventListener('mousemove', (e) => {
       const xPercent = (x / rect.width - 0.5) * 100;
       const yPercent = (y / rect.height - 0.5) * 100;
       
-      // Create subtle gradient follow effect
+      //
       card.style.setProperty('--mouse-x', xPercent + '%');
       card.style.setProperty('--mouse-y', yPercent + '%');
     }
   });
 });
 
-// Parallax tilt for skill tiles with enhanced liquid effect
+// Parallax tilt 
 document.querySelectorAll('.parallax-tile').forEach(tile => {
   tile.addEventListener('mousemove', (e) => {
     const r = tile.getBoundingClientRect();
     const x = (e.clientX - r.left) / r.width - 0.5;
     const y = (e.clientY - r.top) / r.height - 0.5;
     
-    // 3D tilt with enhanced depth
+    // 
     tile.style.transform = `
       perspective(1200px) 
       rotateX(${(-y * 8)}deg) 
@@ -132,7 +132,7 @@ document.querySelectorAll('.parallax-tile').forEach(tile => {
   });
 });
 
-// Enhanced button liquid effect
+// 
 document.querySelectorAll('.btn').forEach(btn => {
   btn.addEventListener('mousemove', (e) => {
     const rect = btn.getBoundingClientRect();
@@ -144,7 +144,7 @@ document.querySelectorAll('.btn').forEach(btn => {
   });
 });
 
-// Card glow on hover
+// 
 document.querySelectorAll('.glass-card, .glass-chip').forEach(card => {
   card.addEventListener('mouseenter', () => {
     card.style.transition = 'all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)';
