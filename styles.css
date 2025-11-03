@@ -2,6 +2,19 @@
 *{margin:0; padding:0; box-sizing:border-box;}
 html{scroll-behavior:smooth;}
 
+
+/* Hide scrollbar for all browsers */
+body, html {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+body::-webkit-scrollbar,
+html::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+
 /* THEME TOKENS — Apple-inspired spacing & type scale */
 :root{
   --bg:#05050a; --bg-2:#0a0d18; --text:#e6ecf8; --muted:#98a4ba;
@@ -38,13 +51,23 @@ html[data-theme="light"]{
 }
 
 /* BASE */
+/* BASE */
 body{
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   color:var(--text); font-weight:var(--fw-reg); letter-spacing:var(--track-normal);
   background: var(--g-apple), linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
   min-height:100dvh; overflow-x:hidden; padding-top:80px;
   -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+  
+  /* Hide scrollbar */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
 }
+
+body::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
 .container{max-width:var(--maxw); margin:0 auto; padding-inline:clamp(20px,3.5vw,32px);}
 section{padding-block:clamp(80px,11vw,130px);}
 p{line-height:var(--para); letter-spacing:var(--track-wide);}
