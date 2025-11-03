@@ -315,15 +315,37 @@ html[data-theme="light"] .nic-logo{
 .project-links{display:flex; gap:14px;}
 .project-link{color:var(--muted); text-decoration:none; display:inline-flex; align-items:center; gap:7px; font-weight:var(--fw-semi); font-size:.92rem; transition: color .22s ease;}
 .project-link:hover{color:var(--text);}
-
 /* SKILLS */
 .skills-grid{display:grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap:clamp(20px,3.4vw,28px);}
 .skill-category{padding:clamp(22px,3vw,28px); perspective:700px; transform-style:preserve-3d;}
 .skill-category h3{margin-bottom:14px; display:flex; align-items:center; gap:11px; font-weight:var(--fw-semi);}
 .skill-category h3 i{color:var(--pri); font-size:1.15rem;}
 .skill-tags{display:flex; flex-wrap:wrap; gap:11px;}
-.skill-tag{background:var(--chip); color:var(--muted); border:1px solid var(--border); border-radius:999px; padding:9px 15px; font-size:.92rem; transition: all .26s ease; backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); font-weight:var(--fw-med); letter-spacing:var(--track-wide);}
-.skill-tag:hover{color:#021a15; background: linear-gradient(135deg, var(--acc), #a9ffe9); border-color:color-mix(in oklab, var(--acc) 46%, transparent);}
+.skill-tag{
+  background:var(--chip); 
+  color:var(--muted); 
+  border:1px solid var(--border); 
+  border-radius:999px; 
+  padding:9px 15px; 
+  font-size:.92rem; 
+  transition: all .3s cubic-bezier(0.4,0,0.2,1); 
+  backdrop-filter:blur(8px); 
+  -webkit-backdrop-filter:blur(8px); 
+  font-weight:var(--fw-med); 
+  letter-spacing:var(--track-wide);
+  cursor:pointer;
+}
+.skill-tag:hover{
+  transform: scale(1.12) translateY(-2px);
+  background: var(--glass-bg);
+  color: var(--text);
+  border-color: color-mix(in oklab, var(--pri) 60%, transparent);
+  box-shadow: var(--shadow-2);
+  backdrop-filter: blur(var(--blur)) saturate(var(--sat)) brightness(var(--glass-bright));
+  -webkit-backdrop-filter: blur(var(--blur)) saturate(var(--sat)) brightness(var(--glass-bright));
+  font-weight:var(--fw-semi);
+}
+
 
 /* CONTACT */
 .contact-grid{display:grid; grid-template-columns: 1.25fr .75fr; gap:clamp(20px,3.4vw,28px);}
